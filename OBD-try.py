@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import pandas as pd
+from bottle import route, run
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -13,8 +14,6 @@ col_options = [dict(label=x, value=x) for x in OBD2.columns]
 dimensions = ["x", "y", "color"]
 
 app = dash.Dash(__name__, external_stylesheets=["https://codepen.io/chriddyp/pen/bWLwgP.css"])
-
-server = app.server
 
 app.layout = html.Div(
     [
@@ -39,5 +38,3 @@ def make_figure(x, y, color):
         color=color,
         height=700)
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
