@@ -4,6 +4,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import pandas as pd
+import os
 from bottle import route, run
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -28,7 +29,7 @@ app.layout = html.Div(
         dcc.Graph(id="graph", style={"width": "75%", "display": "inline-block"})
     ])
 
-
+@route("/")
 @app.callback(Output("graph", "figure"), [Input(d, "value") for d in dimensions])
 def make_figure(x, y, color):
     return px.scatter(
@@ -38,3 +39,6 @@ def make_figure(x, y, color):
         color=color,
         height=700)
 
+#plotly_expressの描画部分
+
+run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
