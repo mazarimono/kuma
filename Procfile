@@ -1,1 +1,1 @@
-web: python OBD-try.py
+web: gunicorn app:server
